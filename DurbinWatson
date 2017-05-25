@@ -19,12 +19,19 @@ BiometriK 38 (1951), pp. 159-78 -->
 <!--Gracias al soporte técnico de Minitab por proveer las tablas-->
 
 <script type="text/javascript">
+
 function capturar()
     {
-        
+        //Variable Tamaño de muestra (sample size)
         var size=document.getElementById("samplesize").value;
+        
+        //Variable Probabilidad en la cola inferior (probability in the lower tail)
         var p=document.getElementById("probability").value;
+        
+        //Variable Número de variables de entrada (number of regressors)
         var k=parseInt(document.getElementById("regressors").value);
+        
+        //Puntos críticos de comparación: dl, dv
         var dl= "5";
         var dv= "6";
         
