@@ -1,0 +1,720 @@
+
+<!--Este algoritmo facilita las pruebas de Durbin Watson con el fin de verificar la hipótesis nula a partir de los resultados obtenidos
+por medio de Software como Minitab Statistical Software.
+En términos generales, Minitab por ejemplo, hasta la versión 17 al realizar pruebas de Durbin Watson como parte de mecanismos para verificar auto-correlación
+ofrece como resultado el indicardo de Durbin Watson; no obstante, ese indicador debe ser comparado contra valores críticos de tabla
+los cuales generalmente son referenciados a literatura y podrían estar no fácilmente accesibles al usuario.
+
+Este código permite realizar la búsqueda de valores críticos de tabla para poder compararlos contra el indicador de pruebas de auto-correlación.
+--->
+
+<!-- Este código fue creado por: Ingeniera Daniela Castro
+dcastro@blackberrycross.com
+(506)25275121
+-->
+
+<!--Los valores referenciados por las tablas, fueron tomados de una reimpresión del original "Testing for serial correlation in least squares regression II"
+BiometriK 38 (1951), pp. 159-78 -->
+
+<!--Gracias al soporte técnico de Minitab por proveer las tablas-->
+
+<script type="text/javascript">
+function capturar()
+    {
+        
+        var size=document.getElementById("samplesize").value;
+        var p=document.getElementById("probability").value;
+        var k=parseInt(document.getElementById("regressors").value);
+        var dl= "5";
+        var dv= "6";
+        
+        
+            if(size == 15) {
+              if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= ".81";
+                    dv= "1.07";    
+                    break; 
+                  case 2:
+                    dl= ".70";
+                    dv= "1.25"; 
+                    break;
+                  case 3:
+                    dl= ".59";
+                    dv= "1.46"; 
+                    break;
+                  case 4:
+                    dl= ".49";
+                    dv= "1.70"; 
+                    break;                                    
+                  default: 
+                    dl= ".39";
+                    dv= "1.96"; 
+                }                  
+             }
+                
+              else if(p == ".025") {
+                  switch(k) {
+                  case 1:
+                    dl= ".95";
+                    dv= "1.23";    
+                    break; 
+                  case 2:
+                    dl= ".83";
+                    dv= "1.40"; 
+                    break;
+                  case 3:
+                    dl= ".71";
+                    dv= "1.61"; 
+                    break;
+                  case 4:
+                    dl= ".59";
+                    dv= "1.84"; 
+                    break;                                    
+                  default: 
+                    dl= ".48";
+                    dv= "2.09"; 
+                }    
+                } 
+              else {
+                 switch(k) {
+                  case 1:
+                    dl= "1.08";
+                    dv= "1.36";    
+                    break; 
+                  case 2:
+                    dl= ".95";
+                    dv= "1.54"; 
+                    break;
+                  case 3:
+                    dl= ".82";
+                    dv= "1.75"; 
+                    break;
+                  case 4:
+                    dl= ".69";
+                    dv= "1.97"; 
+                    break;                                    
+                  default: 
+                    dl= ".56";
+                    dv= "2.21"; 
+                }  
+                } 
+                
+            }
+            else if(size == "20") {
+              if(p == ".01") {
+                  switch(k) {
+                  case 1:
+                    dl= ".95";
+                    dv= "1.15";    
+                    break; 
+                  case 2:
+                    dl= ".86";
+                    dv= "1.27"; 
+                    break;
+                  case 3:
+                    dl= ".77";
+                    dv= "1.41"; 
+                    break;
+                  case 4:
+                    dl= ".63";
+                    dv= "1.57"; 
+                    break;                                    
+                  default: 
+                    dl= ".60";
+                    dv= "1.74"; 
+                }    
+                }
+              else if(p == ".025") {
+                    switch(k) {
+                  case 1:
+                    dl= "1.08";
+                    dv= "1.28";    
+                    break; 
+                  case 2:
+                    dl= ".99";
+                    dv= "1.41"; 
+                    break;
+                  case 3:
+                    dl= ".89";
+                    dv= "1.55"; 
+                    break;
+                  case 4:
+                    dl= ".79";
+                    dv= "1.70"; 
+                    break;                                    
+                  default: 
+                    dl= ".70";
+                    dv= "1.87"; 
+                }  
+                } 
+              else {
+                 switch(k) {
+                  case 1:
+                    dl= "1.20";
+                    dv= "1.41";    
+                    break; 
+                  case 2:
+                    dl= "1.10";
+                    dv= "1.54"; 
+                    break;
+                  case 3:
+                    dl= "1.00";
+                    dv= "1.68"; 
+                    break;
+                  case 4:
+                    dl= ".90";
+                    dv= "1.83"; 
+                    break;                                    
+                  default: 
+                    dl= ".79";
+                    dv= "1.99"; 
+                }  
+                } 
+            }
+            else if(size == "25") {
+              if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= "1.05";
+                    dv= "1.21";    
+                    break; 
+                  case 2:
+                    dl= ".98";
+                    dv= "1.30"; 
+                    break;
+                  case 3:
+                    dl= ".90";
+                    dv= "1.41"; 
+                    break;
+                  case 4:
+                    dl= ".83";
+                    dv= "1.52"; 
+                    break;                                    
+                  default: 
+                    dl= ".75";
+                    dv= "1.65"; 
+                }  
+              }
+                
+              else if(p == ".025") {
+                  switch(k) {
+                  case 1:
+                    dl= "1.13";
+                    dv= "1.34";    
+                    break; 
+                  case 2:
+                    dl= "1.10";
+                    dv= "1.43"; 
+                    break;
+                  case 3:
+                    dl= "1.02";
+                    dv= "1.54"; 
+                    break;
+                  case 4:
+                    dl= ".94";
+                    dv= "1.65"; 
+                    break;                                    
+                  default: 
+                    dl= ".86";
+                    dv= "1.77"; 
+                }  
+              }
+              else {
+              switch(k) {
+                  case 1:
+                    dl= "1.29";
+                    dv= "1.45";    
+                    break; 
+                  case 2:
+                    dl= "1.21";
+                    dv= "1.55"; 
+                    break;
+                  case 3:
+                    dl= "1.12";
+                    dv= "1.66"; 
+                    break;
+                  case 4:
+                    dl= "1.04";
+                    dv= "1.77"; 
+                    break;                                    
+                  default: 
+                    dl= ".95";
+                    dv= "1.89"; 
+                }  
+              
+              }    
+            }
+            else if(size == "30") {
+             if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= "1.13";
+                    dv= "1.26";    
+                    break; 
+                  case 2:
+                    dl= "1.07";
+                    dv= "1.34"; 
+                    break;
+                  case 3:
+                    dl= "1.01";
+                    dv= "1.42"; 
+                    break;
+                  case 4:
+                    dl= ".94";
+                    dv= "1.51"; 
+                    break;                                    
+                  default: 
+                    dl= ".88";
+                    dv= "1.61"; 
+                }  
+              }
+              else if(p == ".025") {
+                  switch(k) {
+                  case 1:
+                    dl= "1.25";
+                    dv= "1.38";    
+                    break; 
+                  case 2:
+                    dl= "1.18";
+                    dv= "1.46"; 
+                    break;
+                  case 3:
+                    dl= "1.12";
+                    dv= "1.54"; 
+                    break;
+                  case 4:
+                    dl= "1.05";
+                    dv= "1.63"; 
+                    break;                                    
+                  default: 
+                    dl= ".98";
+                    dv= "1.73"; 
+                }  
+              }
+              else {
+              switch(k) {
+                  case 1:
+                    dl= "1.35";
+                    dv= "1.49";    
+                    break; 
+                  case 2:
+                    dl= "1.28";
+                    dv= "1.57"; 
+                    break;
+                  case 3:
+                    dl= "1.21";
+                    dv= "1.65"; 
+                    break;
+                  case 4:
+                    dl= "1.14";
+                    dv= "1.74"; 
+                    break;                                    
+                  default: 
+                    dl= "1.07";
+                    dv= "1.83"; 
+                }  
+              
+              }
+            }
+            else if(size == "40") {
+              if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= "1.25";
+                    dv= "1.34";    
+                    break; 
+                  case 2:
+                    dl= "1.20";
+                    dv= "1.40"; 
+                    break;
+                  case 3:
+                    dl= "1.15";
+                    dv= "1.46"; 
+                    break;
+                  case 4:
+                    dl= "1.10";
+                    dv= "1.52"; 
+                    break;                                    
+                  default: 
+                    dl= "1.05";
+                    dv= "1.58"; 
+                }  
+              }
+              else if(p == ".025") {
+                  switch(k) {
+                  case 1:
+                    dl= "1.35";
+                    dv= "1.45";    
+                    break; 
+                  case 2:
+                    dl= "1.30";
+                    dv= "1.51"; 
+                    break;
+                  case 3:
+                    dl= "1.25";
+                    dv= "1.57"; 
+                    break;
+                  case 4:
+                    dl= "1.20";
+                    dv= "1.63"; 
+                    break;                                    
+                  default: 
+                    dl= "1.15";
+                    dv= "1.69"; 
+                }  
+              }
+              else {
+              switch(k) {
+                  case 1:
+                    dl= "1.44";
+                    dv= "1.54";    
+                    break; 
+                  case 2:
+                    dl= "1.39";
+                    dv= "1.60"; 
+                    break;
+                  case 3:
+                    dl= "1.34";
+                    dv= "1.66"; 
+                    break;
+                  case 4:
+                    dl= "1.29";
+                    dv= "1.72"; 
+                    break;                                    
+                  default: 
+                    dl= "1.23";
+                    dv= "1.79"; 
+                }  
+              
+              }
+            }
+            else if(size == "50") {
+              if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= "1.32";
+                    dv= "1.40";    
+                    break; 
+                  case 2:
+                    dl= "1.28";
+                    dv= "1.45"; 
+                    break;
+                  case 3:
+                    dl= "1.24";
+                    dv= "1.49"; 
+                    break;
+                  case 4:
+                    dl= "1.20";
+                    dv= "1.54"; 
+                    break;                                    
+                  default: 
+                    dl= "1.16";
+                    dv= "1.59"; 
+                }  
+              }
+              else if(p == ".025") {
+                  switch(k) {
+                  case 1:
+                    dl= "1.42";
+                    dv= "1.50";    
+                    break; 
+                  case 2:
+                    dl= "1.38";
+                    dv= "1.54"; 
+                    break;
+                  case 3:
+                    dl= "1.34";
+                    dv= "1.59"; 
+                    break;
+                  case 4:
+                    dl= "1.30";
+                    dv= "1.64"; 
+                    break;                                    
+                  default: 
+                    dl= "1.26";
+                    dv= "1.69"; 
+                }  
+              }
+              else {
+              switch(k) {
+                  case 1:
+                    dl= "1.50";
+                    dv= "1.59";    
+                    break; 
+                  case 2:
+                    dl= "1.46";
+                    dv= "1.63"; 
+                    break;
+                  case 3:
+                    dl= "1.42";
+                    dv= "1.67"; 
+                    break;
+                  case 4:
+                    dl= "1.38";
+                    dv= "1.72"; 
+                    break;                                    
+                  default: 
+                    dl= "1.34";
+                    dv= "1.77"; 
+                }  
+              
+              }
+            }
+            else if(size == "60") {
+              if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= "1.38";
+                    dv= "1.45";    
+                    break; 
+                  case 2:
+                    dl= "1.35";
+                    dv= "1.48"; 
+                    break;
+                  case 3:
+                    dl= "1.32";
+                    dv= "1.52"; 
+                    break;
+                  case 4:
+                    dl= "1.28";
+                    dv= "1.56"; 
+                    break;                                    
+                  default: 
+                    dl= "1.25";
+                    dv= "1.60"; 
+                }  
+              }
+              else if(p == ".025") {
+                  switch(k) {
+                  case 1:
+                    dl= "1.47";
+                    dv= "1.54";    
+                    break; 
+                  case 2:
+                    dl= "1.44";
+                    dv= "1.57"; 
+                    break;
+                  case 3:
+                    dl= "1.40";
+                    dv= "1.61"; 
+                    break;
+                  case 4:
+                    dl= "1.37";
+                    dv= "1.65"; 
+                    break;                                    
+                  default: 
+                    dl= "1.33";
+                    dv= "1.69"; 
+                }  
+              }
+              else {
+              switch(k) {
+                  case 1:
+                    dl= "1.55";
+                    dv= "1.62";    
+                    break; 
+                  case 2:
+                    dl= "1.51";
+                    dv= "1.65"; 
+                    break;
+                  case 3:
+                    dl= "1.48";
+                    dv= "1.69"; 
+                    break;
+                  case 4:
+                    dl= "1.44";
+                    dv= "1.73"; 
+                    break;                                    
+                  default: 
+                    dl= "1.41";
+                    dv= "1.77"; 
+                }  
+              
+              }
+            }
+            else if(size == "80") {
+              if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= "1.47";
+                    dv= "1.52";    
+                    break; 
+                  case 2:
+                    dl= "1.44";
+                    dv= "1.54"; 
+                    break;
+                  case 3:
+                    dl= "1.42";
+                    dv= "1.57"; 
+                    break;
+                  case 4:
+                    dl= "1.39";
+                    dv= "1.60"; 
+                    break;                                    
+                  default: 
+                    dl= "1.36";
+                    dv= "1.62"; 
+                }  
+              }
+              else if(p == ".025") {
+                  switch(k) {
+                  case 1:
+                    dl= "1.54";
+                    dv= "1.59";    
+                    break; 
+                  case 2:
+                    dl= "1.52";
+                    dv= "1.62"; 
+                    break;
+                  case 3:
+                    dl= "1.49";
+                    dv= "1.65"; 
+                    break;
+                  case 4:
+                    dl= "1.47";
+                    dv= "1.67"; 
+                    break;                                    
+                  default: 
+                    dl= "1.44";
+                    dv= "1.70"; 
+                }  
+              }
+              else {              
+              switch(k) {
+                  case 1:
+                    dl= "1.61";
+                    dv= "1.66";    
+                    break; 
+                  case 2:
+                    dl= "1.59";
+                    dv= "1.69"; 
+                    break;
+                  case 3:
+                    dl= "1.56";
+                    dv= "1.72"; 
+                    break;
+                  case 4:
+                    dl= "1.53";
+                    dv= "1.74"; 
+                    break;                                    
+                  default: 
+                    dl= "1.51";
+                    dv= "1.77"; 
+                }  
+              }
+            }
+            else {
+             if(p == ".01") {
+                switch(k) {
+                  case 1:
+                    dl= "1.52";
+                    dv= "1.56";    
+                    break; 
+                  case 2:
+                    dl= "1.50";
+                    dv= "1.58"; 
+                    break;
+                  case 3:
+                    dl= "1.48";
+                    dv= "1.60"; 
+                    break;
+                  case 4:
+                    dl= "1.45";
+                    dv= "1.63"; 
+                    break;                                    
+                  default: 
+                    dl= "1.44";
+                    dv= "1.65"; 
+                }  
+              }
+             else if(p == ".025") {
+                switch(k) {
+                  case 1:
+                    dl= "1.59";
+                    dv= "1.63";    
+                    break; 
+                  case 2:
+                    dl= "1.57";
+                    dv= "1.65"; 
+                    break;
+                  case 3:
+                    dl= "1.55";
+                    dv= "1.67"; 
+                    break;
+                  case 4:
+                    dl= "1.53";
+                    dv= "1.70"; 
+                    break;                                    
+                  default: 
+                    dl= "1.51";
+                    dv= "1.72"; 
+                }    
+              }
+              else {
+              switch(k) {
+                  case 1:
+                    dl= "1.65";
+                    dv= "1.69";    
+                    break; 
+                  case 2:
+                    dl= "1.63";
+                    dv= "1.72"; 
+                    break;
+                  case 3:
+                    dl= "1.61";
+                    dv= "1.74"; 
+                    break;
+                  case 4:
+                    dl= "1.59";
+                    dv= "1.76"; 
+                    break;                                    
+                  default: 
+                    dl= "1.57";
+                    dv= "1.78"; 
+                }  
+              
+              }
+            }
+                        
+        document.getElementById("resultado").innerHTML=" \
+            Sample Size: "+size+"\
+            <br>Probability: "+p+"\
+            <br>Regressors: "+k+"\
+            <br>dL: "+dl+"\
+            <br>dV: "+dv;
+    }
+
+
+</script>
+
+
+<form id="form1" style="width:250px;height:180px;border:1px solid #ccc;padding:10px;">
+    <p>Sample Size:          <select class="formulario_select" id="samplesize" name="samplesize">
+    <option value="15">15</option>
+    <option value="20">20</option>
+    <option value="25">25</option>
+    <option value="30">30</option>
+    <option value="40">40</option>
+    <option value="50">50</option>
+    <option value="60">60</option>
+    <option value="80">80</option>
+    <option value="100">100</option>
+    </select></p>
+    <p>Probability in Lower Tail:          <select class="formulario_select" id="probability" name="probability">
+    <option value=".01">.01</option>
+    <option value=".025">.025</option>
+    <option value=".05">.05</option>
+    </select></p>
+    <p>Number of Regressors:          <select class="formulario_select" id="regressors" name="regressors">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    </select></p>
+</form>
+<p><input onclick="capturar()" value="Get Results" type="button" /></p>
+<div id="resultado">&nbsp;</div>
+<p>&nbsp;</p>
